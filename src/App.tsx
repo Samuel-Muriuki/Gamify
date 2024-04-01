@@ -3,17 +3,19 @@ import Alert from "./components/Alert";
 import Button from "./components/Button";
 
 function App() {
-    const [displayStyle, setDisplayStyle] = useState("none");
+    const [alertVisibility, setAlertVisibility] = useState(false);
 
-    const alertStyle = {
-        display: `${displayStyle}`,
-    };
     return (
         <div className="p-3 m-0 border-0 bd-example m-0 border-0">
-            <div style={alertStyle}>
-                <Alert>
+            {alertVisibility && (
+                <Alert
+                    onClose={() => {
+                        setAlertVisibility(false);
+                        console.log("alertVisibility: ", alertVisibility);
+                    }}
+                >
                     <div
-                        className="alert alert-primary d-flex align-items-center alert-dismissible fade show"
+                        className=" alert-primary d-flex align-items-center alert-dismissible fade show"
                         role="alert"
                     >
                         <svg
@@ -32,22 +34,15 @@ function App() {
                                 <em>El Samm</em>
                             </strong>
                         </div>
-                        <button
-                            type="button"
-                            className="btn-close"
-                            data-bs-dismiss="alert"
-                            aria-label="Close"
-                            onClick={() => setDisplayStyle("none")}
-                        ></button>
                     </div>
                 </Alert>
-            </div>
+            )}
             <Button
                 color={"danger"}
                 onClick={() => {
-                    setDisplayStyle("inline");
+                    setAlertVisibility(true);
                     console.log("Clicked");
-                    console.log("displayStyle: ", displayStyle);
+                    console.log("alertVisibility: ", alertVisibility);
                 }}
             >
                 My Button
